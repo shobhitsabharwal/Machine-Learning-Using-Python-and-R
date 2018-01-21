@@ -38,7 +38,7 @@ plt.show()
 
 #visualising the test set results
 plt.scatter(x_test,y_test,color='red')
-plt.plot(x_test,regressor.predict(x_test), color='blue') #this can be same as line 32 as model has already created
+plt.plot(x_test,regressor.predict(x_test), color='blue') 
 plt.title('Salary VS Experience (Test set)')
 plt.xlabel('Year of experience')
 plt.ylabel('Salary')
