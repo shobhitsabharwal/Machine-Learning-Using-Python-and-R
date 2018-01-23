@@ -10,7 +10,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 #Importing dataset and assigning dependent and independent variables
-dataset=pd.read_csv('Salary_Data.csv')
+dataset=pd.read_csv('Salary_Data.csv') #use this file from Dataset folder
 x=dataset.iloc[:,:-1].values
 y=dataset.iloc[:,1].values
 
