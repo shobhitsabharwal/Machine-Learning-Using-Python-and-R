@@ -1,8 +1,7 @@
 #Simple linear regression
-rm(list=ls())
 
 #importing Data
-dataset<-read.csv("Salary_Data.csv")
+dataset<-read.csv("Salary_Data.csv") #use this file from Dataaset folder
 
 #Splitting Group into 
 library(caTools)
