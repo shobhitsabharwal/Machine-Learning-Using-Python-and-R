@@ -1,0 +1,25 @@
+rm(list=ls())
+#Importing database
+dataset = read.csv("Position_Salaries.csv")
+dataset = dataset[2:3] 
+
+#Building SVM model 
+#install.packages("e1071")
+library(e1071)
+regressor = svm(formula = Salary ~ .,
+                data = dataset,
+                type='eps-regression')
+
+
+#visualization of SVM model 
+library(ggplot2)
+ggplot()+
+  geom_point(aes(x=dataset$Level, y= dataset$Salary), data = dataset, 
+             color = 'red') +
+  geom_path(aes(x = dataset$Level, y = predict(regressor, newdata = dataset)), color = 'blue')+
+  xlab("Level")+
+  ylab("Salary")+
+  ggtitle("SVM Model")
+
+#Prediction using SVM model 
+y_Pred = predict(regressor, data.frame(Level = 6.5))
