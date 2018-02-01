@@ -1,0 +1,42 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Jan 31 20:21:01 2018
+
+@author: Shobhit Sabharwal
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Import Dataset
+dataset = pd.read_csv("Position_Salaries.csv")
+x = dataset.iloc[:,1:2].values
+y = dataset.iloc[:,2:3].values
+
+#Scaling dataset
+#SVM doesnt have default scaling method 
+
+from sklearn.preprocessing import StandardScaler
+sc_x = StandardScaler() 
+sc_y = StandardScaler()
+x_scal = sc_x.fit_transform(x)
+y_scal = sc_y.fit_transform(y)
+
+#Making SVM regression model 
+from sklearn.svm import SVR
+regressor = SVR(kernel = 'rbf')
+regressor.fit(x_scal, y_scal)
+
+#Visualizing SVM model
+plt.scatter(x_scal, y_scal, color = 'red')
+plt.plot(x_scal, regressor.predict(x_scal), color = 'blue')
+plt.xlabel('Position Level')
+plt.ylabel('Salary')
+plt.title('SVR model')
+plt.show()
+
+
+#Prediction for specific input value using SVM model 
+val = float(input("Input Value to predict Salary: "))
+y_pred = sc_y.inverse_transform(regressor.predict(sc_x.transform(np.array([[val]]))))
