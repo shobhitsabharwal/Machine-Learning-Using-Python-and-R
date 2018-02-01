@@ -1,0 +1,50 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Feb  1 00:59:52 2018
+
+@author: Shobhit Sabharwal
+"""
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+#Import Dataset
+dataset = pd.read_csv("Position_Salaries.csv")
+x = dataset.iloc[:,1:2].values
+y = dataset.iloc[:,2:3].values
+
+#Making Random Forest regression model with different number of tree
+from sklearn.ensemble import RandomForestRegressor
+#Regressor = RandomForestRegressor(n_estimators = 100, random_state = 0)
+#regressor.fit(x, y)
+
+n_tree = [10,100,300]
+for tree in n_tree:
+    regressor = RandomForestRegressor(n_estimators = int(tree), random_state = 0)
+    regressor.fit(x, y)
+    
+    #predicting specific value
+    y_pred = regressor.predict(6.5)
+    print("Number of trees is %d" % tree)
+    print("Salary with position Level 6.5 is %.2f" % y_pred)
+    print("------------")
+
+
+#this is not continues model 
+#We need to make more points for independent variable
+#Visualizing Random Forest model
+x_grid = np.arange(min(x), max(x), 0.01)
+x_grid = x_grid.reshape((len(x_grid),1))
+plt.scatter(x, y, color = 'red')
+plt.plot(x_grid, regressor.predict(x_grid), color = 'blue')
+plt.xlabel('Position Level')
+plt.ylabel('Salary')
+plt.title('Random Forest Regression model')
+plt.show()
+
+
+#Prediction for specific input value using random forest model 
+val = float(input("Input Value to predict Salary: "))
+y_pred = regressor.predict(val)
+print("Salary with position Level %.2f is %.2f" % (val,y_pred))
