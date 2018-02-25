@@ -1,4 +1,6 @@
-#Logistic Regression
+#K-NN 
+#Classification
+
 rm(list =ls())
 
 #Import Dataset
